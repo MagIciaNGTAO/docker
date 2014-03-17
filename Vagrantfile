@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, host: 9300, guest: 9300
   
 
-  #config.vm.synced_folder("vagrant-docker", "/vagrant")
+  config.vm.synced_folder "data/", "/mnt/apps", create: true
 
   if Dir.glob("#{File.dirname(__FILE__)}/.vagrant/machines/default/*/id").empty?
     config.vm.provision "shell",

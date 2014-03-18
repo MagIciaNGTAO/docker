@@ -22,13 +22,22 @@ Vagrant.configure("2") do |config|
   #elasticsearch
   config.vm.network :forwarded_port, host: 9200, guest: 9200
   config.vm.network :forwarded_port, host: 9300, guest: 9300
-  
 
+  #oracle nosql
+  config.vm.network :forwarded_port, host: 5000, guest: 5000
+  config.vm.network :forwarded_port, host: 5001, guest: 5001
+  
   config.vm.synced_folder "data/", "/mnt/apps", create: true
 
   if Dir.glob("#{File.dirname(__FILE__)}/.vagrant/machines/default/*/id").empty?
     config.vm.provision "shell",
       inline: $script
+  end
+
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http     = ENV['http_proxy']
+    config.proxy.https    = ENV['https_proxy']
+    config.proxy.no_proxy = "localhost,127.0.0.1"
   end
 
   # add a bit more memory, it never hurts. It's VM specific and we're using Virtualbox here.

@@ -10,6 +10,10 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E9
 sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
 apt-get update
 apt-get install -y lxc-docker
+cp /vagrant/vm/etc/docker /etc/default/docker
+
+sed -i "s/HTTP_PROXY_URL/$http_proxy/g" /etc/default/docker
+sed -i "s/HTTPS_PROXY_URL/$https_proxy/g" /etc/default/docker
 
 # Avoid having to type "sudo" every time we use docker by creating
 # the default docker group and add default vagrant user to this group.

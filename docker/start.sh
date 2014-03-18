@@ -24,3 +24,8 @@ docker rm elasticsearch > /dev/null 2>&1 || true
 ELASTICSEARCH=$(docker run -d -p 9200:9200 -p 9300:9300 -v $APPS/elasticsearch:/out --name="elasticsearch"  fitbur/elasticsearch)
 echo "Started ElasticSearch in container $ELASTICSEARCH"
 
+mkdir -p $APPS/onosql
+docker rm onosql > /dev/null 2>&1 || true
+ONOSQL=$(docker run -d -p 5000:5000 -p 5001:5001 -v $APPS/onosql:/out --name="onosql"  fitbur/onosql)
+echo "Started Oracle NoSQL in container $ONOSQL"
+

@@ -2,28 +2,22 @@ FROM ubuntu:12.04
 
 MAINTAINER Sharmarke Aden, saden1@gmail.com
 
-# Update the APT cache
+# Setup software and repositories
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN apt-get update
+
+# Install core softwware tools
+RUN apt-get install -y curl wget nano git build-essential software-properties-common python-software-properties
+RUN apt-get dist-upgrade
 
 # Set the local
 RUN locale-gen en_US en_US.UTF-8
 
-#Install and setup project dependencies
-RUN apt-get install -y curl wget git build-essential
-#python-software-properties software-properties-common
-
-# Fake a fuse install so we can install openjdk on unbuntu system
-RUN apt-get install libfuse2
-RUN cd /tmp ; apt-get download fuse
-RUN cd /tmp ; dpkg-deb -x fuse_* .
-RUN cd /tmp ; dpkg-deb -e fuse_*
-RUN cd /tmp ; rm fuse_*.deb
-RUN cd /tmp ; echo -en '#!/bin/bash\nexit 0\n' > DEBIAN/postinst
-RUN cd /tmp ; dpkg-deb -b . /fuse.deb
-RUN cd /tmp ; dpkg -i /fuse.deb
-
 # Install Java
-RUN apt-get install -y openjdk-7-jdk
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
-ENV PATH $JAVA_HOME/bin:$PATH
+RUN add-apt-repository -y ppa:webupd8team/java 
+RUN apt-get update
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+RUN apt-get -y install oracle-java8-installer 
+RUN apt-get -y clean
+RUN update-java-alternatives -s java-8-oracle 
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle

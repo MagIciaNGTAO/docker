@@ -1,19 +1,29 @@
 FROM fitbur/base
 
-ENV VERSION 1.0.1
-ENV ES_FILE elasticsearch-$VERSION.tar.gz
-ENV ES_HOME /opt/elasticsearch-$VERSION
+ENV _VERSION 1.1.1
+ENV _FILE elasticsearch-$_VERSION.tar.gz
+ENV _HOME /opt/elasticsearch-$_VERSION
+ENV _SERVICE /opt/elasticsearch
 
-RUN wget --no-check-certificate https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_FILE -O /tmp/$ES_FILE
-RUN tar xzvf /tmp/$ES_FILE -C /opt
-RUN ln -sfn $ES_HOME /opt/elasticsearch 
-RUN $ES_HOME/bin/plugin -install mobz/elasticsearch-head
+RUN wget --no-check-certificate https://download.elasticsearch.org/elasticsearch/elasticsearch/$_FILE -O /tmp/$_FILE
+RUN tar xzvf /tmp/$_FILE -C /opt
+RUN ln -sfn $_HOME $_SERVICE
+RUN rm /tmp/$_FILE
+
+RUN $_HOME/bin/plugin -install mobz/elasticsearch-head
 
 RUN mkdir -p /out
+
+ADD elasticsearch.yml $_HOME/config/elasticsearch.yml
+ADD logging.yml $_HOME/config/logging.yml
+ADD elasticsearch-start.sh $_HOME/elasticsearch-start.sh
+
+RUN chmod a+x $_HOME/elasticsearch-start.sh
+RUN sed -i "s#HOME_CONFIG#$_HOME/config#g" $_HOME/config/elasticsearch.yml
 
 VOLUME [ "/out" ]
 
 EXPOSE 9200
 EXPOSE 9300
 
-CMD ["/opt/elasticsearch/bin/elasticsearch", "-f", "-D", "es.path.logs=/out", "-D", "es.path.data=/out", "-D", "es.network.publish_host=127.0.0.1", "-D", "es.cluster.name=search-localhost" ]
+CMD ["/opt/elasticsearch/elasticsearch-start.sh"]

@@ -2,18 +2,18 @@ FROM fitbur/base
 
 MAINTAINER Sharmarke Aden, saden1@gmail.com
 
-ENV ZK_VERSION 3.4.6
-ENV ZK_FILE zookeeper-$ZK_VERSION.tar.gz
-ENV ZK_HOME /opt/zookeeper-$ZK_VERSION
+ENV _VERSION 3.4.6
+ENV _FILE zookeeper-$_VERSION.tar.gz
+ENV _HOME /opt/zookeeper-$_VERSION
 
-RUN wget http://apache.mirrors.lucidnetworks.net/zookeeper/zookeeper-$ZK_VERSION/$ZK_FILE -O /tmp/$ZK_FILE
-RUN tar xzvf /tmp/$ZK_FILE -C /opt
-RUN ln -sfn $ZK_HOME /opt/zookeeper 
+RUN wget http://apache.mirrors.lucidnetworks.net/zookeeper/zookeeper-$_VERSION/$_FILE -O /tmp/$_FILE
+RUN tar xzvf /tmp/$_FILE -C /opt
+RUN ln -sfn $_HOME /opt/zookeeper 
 
 RUN mkdir -p /out
 
-ADD zoo.cfg $ZK_HOME/conf/zoo.cfg
-ADD log4j.properties $ZK_HOME/conf/log4j.properties
+ADD zoo.cfg $_HOME/conf/zoo.cfg
+ADD log4j.properties $_HOME/conf/log4j.properties
 
 VOLUME [ "/out" ]
 

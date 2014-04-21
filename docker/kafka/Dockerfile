@@ -2,28 +2,27 @@ FROM fitbur/base
 
 MAINTAINER Sharmarke Aden, saden1@gmail.com
 
-ENV KAFKA_VERSION 0.8.1
+ENV _VERSION 0.8.1
 ENV SCALA_VERSION 2.10
-ENV VERSION $SCALA_VERSION-$KAFKA_VERSION
-ENV KAFKA_FILE kafka_$VERSION.tgz
-ENV KAFKA_HOME /opt/kafka_$VERSION
+ENV VERSION $SCALA_VERSION-$_VERSION
+ENV _FILE _$VERSION.tgz
+ENV _HOME /opt/_$VERSION
+ENV JMX_PORT 7203
 
-RUN wget http://apache.mirrors.lucidnetworks.net/kafka/$KAFKA_VERSION/$KAFKA_FILE -O /tmp/$KAFKA_FILE
-RUN tar xzvf /tmp/$KAFKA_FILE -C /opt
-RUN ln -sfn $KAFKA_HOME /opt/kafka 
+RUN wget http://apache.mirrors.lucidnetworks.net/kafka/$_VERSION/$_FILE -O /tmp/$_FILE
+RUN tar xzvf /tmp/$_FILE -C /opt
+RUN ln -sfn $_HOME /opt/kafka 
 
 RUN mkdir -p /out
 
-ADD server.properties $KAFKA_HOME/config/server.properties
-ADD kafka-start.sh $KAFKA_HOME/kafka-start.sh
+ADD server.properties $_HOME/config/server.properties
+ADD kafka-start.sh $_HOME/kafka-start.sh
 
-ENV JMX_PORT 7203
+
 
 VOLUME [ "/out" ]
 
 # primary
-EXPOSE 9092
-# jmx
-EXPOSE 7203
+EXPOSE 9092 7203
 
 CMD ["/opt/kafka/kafka-start.sh"]

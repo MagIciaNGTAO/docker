@@ -6,13 +6,13 @@ yellow=$(tput setaf 3)
 blue=$(tput setaf 4)
 
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo "Building All Images"
 
-for i in * ; do
-  if [ -d "$i" ]; then
-    echo "${yellow}Building '$i'${textreset}"
-    ./$i/build.sh
-    echo "${green}Image '$i' Built${textreset}"
+for name in * ; do
+  SCRIPT=./$name/build.sh
+  if [ -d "$name" ] && [ -e "$SCRIPT" ]; then
+    echo "${yellow}Building '$name' Image${textreset}"
+    $SCRIPT
+    echo "${green}Image '$name' Built${textreset}"
   fi
 done
 

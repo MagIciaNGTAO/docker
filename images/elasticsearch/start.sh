@@ -17,6 +17,6 @@ else
   fi
 
   echo "Starting $NAME"
-  docker run -d -p 9200:9200 -p 9300:9300 -v $HOST_DIR/$NAME:/out -h $NAME --name="$NAME" fitbur/$NAME
+  docker run -d -P -p 9200:9200 -p 9300:9300 -v $HOST_DIR/$NAME:/out -h $NAME --name="$NAME" fitbur/$NAME
 fi
 

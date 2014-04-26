@@ -18,7 +18,5 @@ ADD resources $_HOME
 RUN find $_HOME -name "*.sh" | xargs chmod 755
 RUN chown -R fitbur:fitbur $_HOME
 
-# Run supervised services
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
 

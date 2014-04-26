@@ -6,13 +6,12 @@ yellow=$(tput setaf 3)
 
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-echo "${yellow}Building Storm Images${textreset}"
-
-for i in * ; do
-  if [ -d "$i" ]; then
-    echo "${yellow}Building '$i'${textreset}"
-    ./$i/build.sh
-    echo "${green}Image '$i' Built${textreset}"
+for name in * ; do
+  SCRIPT=./$name/build.sh
+  if [ -d "$name" ] && [ -e "$SCRIPT" ]; then
+    echo "${yellow}Building '$name' Image(s)${textreset}"
+    $SCRIPT
+    echo "${green}Built '$name' Image(s)${textreset}"
   fi
 done
 

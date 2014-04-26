@@ -19,6 +19,6 @@ else
   fi
 
   echo "Starting $NAME"
-  docker run -d -p 9092:9092 -p 7203:7203 -v $HOST_DIR/$NAME:/out -h $NAME --name="$NAME" --link="zookeeper:zookeeper" fitbur/$NAME
+  docker run -d -P -p 9092:9092 -p 7203:7203 -v $HOST_DIR/$NAME:/out -h $NAME --name="$NAME" --link="zookeeper:zookeeper" fitbur/$NAME
 fi
 

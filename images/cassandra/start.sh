@@ -11,7 +11,7 @@ if [ $RUNNING -eq 0 ]; then
 else
   if [ -z "$HOST_DIR" ] ; then
     echo "Setting HOST_DIR to /tmp"
-    HOST_DIR=/tmp
+    HOST_DIR=/tmp/containers
     echo "Making $HOST_DIR/$NAME"
     mkdir -p $HOST_DIR/$NAME
   fi

@@ -17,6 +17,7 @@ ADD etc /etc
 
 RUN find $_HOME -name "*.sh" | xargs chmod 755
 RUN sed -i "s#HOME_CONFIG#$_HOME/config#g" $_HOME/config/$_NAME.yml
+RUN $_HOME/bin/plugin -install royrusso/elasticsearch-HQ
 
 VOLUME [ "/out" ]
 

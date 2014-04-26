@@ -13,13 +13,12 @@ if [ $RUNNING -eq 0 ]; then
     echo "$NAME is already running"
 else
   if [ -z "$HOST_DIR" ] ; then
-    echo "Setting HOST_DIR to /tmp"
     HOST_DIR=/tmp/containers
-    echo "Making $HOST_DIR/$NAME"
     mkdir -p $HOST_DIR/$NAME
   fi
 
   echo "Starting $NAME"
+  echo "Mounting Volume $HOST_DIR/$NAME"
   docker run -d -P -h $NAME --name="$NEW_NAME" -p 8080:8080 -v $HOST_DIR/$NAME:/out --link="nimbus:nimbus" --link="zookeeper:zookeeper" fitbur/$NAME
 fi
 

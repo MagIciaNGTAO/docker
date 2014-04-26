@@ -12,9 +12,8 @@ done
 
 echo "${yellow}Removing Containers${textreset}"
 for image in ${images}; do 
- docker rm -f $image
+  docker rm -f $image
 done
-
 
 echo "${green}Cleanup Completed${textreset}"
 

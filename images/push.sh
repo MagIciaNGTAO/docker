@@ -10,7 +10,7 @@ cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 ./build.sh
 
-names=$(docker images | grep "^fitbur" | awk '{print $1}')
+names=$(docker images | grep "^fitbur" | awk '{print $1":"$2}')
 
 for name in $names ; do
   echo "${yellow}Pushing '$name' Image${textreset}"

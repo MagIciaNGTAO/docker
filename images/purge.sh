@@ -8,6 +8,7 @@ cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 
 ./cleanup.sh
+#docker images | grep fitbur | awk '{print $3}' | xargs docker rmi
 
 images=$(docker images -q)
 

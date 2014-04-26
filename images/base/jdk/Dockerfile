@@ -1,6 +1,7 @@
 FROM fitbur/common
 
 MAINTAINER Sharmarke Aden, saden1@gmail.com
+ENV _VERSION 8u5
 
 # Install core softwware tools
 RUN apt-get install -y software-properties-common

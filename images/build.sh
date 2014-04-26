@@ -5,28 +5,26 @@ green=$(tput setaf 2)
 yellow=$(tput setaf 3) 
 blue=$(tput setaf 4)
 
-cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "${blue}Building All Images${textreset}"
 
-for name in * ; do
-  SCRIPT=./$name/build.sh
-  if [ -d "$name" ] && [ -e "$SCRIPT" ]; then
-    echo "${yellow}Building '$name' Image(s)${textreset}"
-    $SCRIPT
-    echo "${green}Built '$name' Image(s)${textreset}"
-  fi
-done
+images=$(find $SCRIPT_DIR -name "Dockerfile" | sort)
 
-images=$(docker ps -a -q)
-echo "${yellow}Removing Intermediates Containers${textreset}"
-for image in ${images}; do 
-  docker rm -f $image
-done
+for image in $images ; do
+  DIR=$(dirname $image)
+  NAME=fitbur/$(echo "$image" | awk -F/ '{print $(NF-1)}')
+  TAG=$(cat $image  | grep "ENV _VERSION" | awk '{print $3}')
 
-images=$(docker images | grep "^<none>" | awk '{print $3}')
-echo "${yellow}Removing Intermediates Images${textreset}"
-for image in ${images}; do 
- docker rmi -f $image
+  cd $DIR
+
+  echo "${yellow}Building '$NAME' Image${textreset}"  
+  docker build --rm -t $NAME .
+
+  echo "${yellow}Tagging '$NAME' Image ($TAG)${textreset}"
+  docker tag  $NAME $NAME:$TAG
+ 
+  echo "${green}Image '$NAME' Built${textreset}"
 done
 
 echo "${blue}All Images Built. Happy Sailing!${textreset}"
+

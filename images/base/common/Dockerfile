@@ -1,6 +1,7 @@
 FROM ubuntu:14.04
 
 MAINTAINER Sharmarke Aden, saden1@gmail.com
+ENV _VERSION 14.04
 
 # Set default system settings
 RUN locale-gen en_US en_US.UTF-8

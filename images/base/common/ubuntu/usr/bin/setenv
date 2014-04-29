@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Set Dynamic Container Environmental Variables
+export CONTAINER_NAME=$(hostname)
+export CONTAINER_IP=$(hostname -i)
+export CONTAINER_DATA=/out
+

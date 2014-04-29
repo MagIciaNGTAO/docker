@@ -2,6 +2,7 @@ FROM ubuntu:14.04
 
 MAINTAINER Sharmarke Aden, saden1@gmail.com
 ENV _VERSION 14.04
+ENV _OUT /out
 
 # Set default system settings
 RUN locale-gen en_US en_US.UTF-8
@@ -13,27 +14,34 @@ RUN apt-get update
 RUN apt-get dist-upgrade -y
 
 # Install Tools
-RUN apt-get install -y curl wget nano unzip openssh-server supervisor
+RUN apt-get install -y curl wget nano unzip openssh-server supervisor sysstat
 
 # Add System Configurations
-ADD etc/supervisor /etc/supervisor
-ADD etc/ssh /etc/ssh
+ADD etc /etc
+ADD usr /usr
+
+RUN chmod a+x /usr/bin/setenv
+
+# Create default privileged user (fitbur)
+RUN useradd -U -m -G sudo -d /home/fitbur -s /bin/bash fitbur
+RUN echo "fitbur:fitbur" | chpasswd
+
+# Set  root password
+RUN echo "root:fitbur" | chpasswd
 
 # Create directories
 RUN mkdir -p /out
 RUN mkdir -p /var/run/sshd
 
-# Create default system user
-ENV _USER fitbur
-ENV _HOME /home/$_USER
-RUN useradd -U -m -G sudo -d $_HOME -s /bin/bash $_USER
-RUN echo "$_USER:$_USER" | chpasswd
+# TODO: from a security standpoint is this wise?
+# This is OK for dev but not for prod.
+RUN chown -R fitbur:fitbur $_OUT
 
-# Set  root password
-RUN echo "root:fitbur" | chpasswd
+VOLUME ["/out"]
 
 # Expose SSH port
 EXPOSE 22
 
 # Run supervised services
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+

@@ -17,7 +17,6 @@ RUN apt-get dist-upgrade -y
 RUN apt-get install -y curl wget nano unzip openssh-server supervisor sysstat
 RUN apt-get -y clean
 RUN apt-get -y autoremove
-RUN apt-get autoremove
 
 # Add System Configurations
 ADD etc /etc

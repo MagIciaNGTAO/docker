@@ -1,4 +1,4 @@
-FROM fitbur/jdk
+FROM fitbur/jre
 
 MAINTAINER Sharmarke Aden, saden1@gmail.com
 

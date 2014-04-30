@@ -29,7 +29,7 @@
 # Cluster name identifies your cluster for auto-discovery. If you're running
 # multiple clusters on the same network, make sure you're using unique names.
 #
-cluster.name: elasticsearch
+cluster.name: fitbur
 
 
 #################################### Node #####################################
@@ -142,7 +142,7 @@ cluster.name: elasticsearch
 
 # Path to directory containing configuration (this file and logging.yml):
 #
-path.conf: HOME_CONFIG
+path.conf: CONFIG_HOME
 
 # Path to directory where to store index data allocated for this node.
 #
@@ -205,11 +205,11 @@ path.logs: /out
 # Set the address other nodes will use to communicate with this node. If not
 # set, it is automatically derived. It must point to an actual IP address.
 #
-network.publish_host: 127.0.0.1
+#network.publish_host: CONTAINER_IP
 
 # Set both 'bind_host' and 'publish_host':
 #
-#network.host: 127.0.0.1
+network.host: CONTAINER_IP
 
 # Set a custom port for the node to node communication (9300 by default):
 #

@@ -16,6 +16,8 @@ else
 
   echo "Starting $NAME"
   echo "Mounting Volume $HOST_DIR/$NAME"
-  docker run -d -P -p 9200:9200 -p 9300:9300 -v $HOST_DIR/$NAME:/out -h $NAME --name="$NAME" fitbur/$NAME
+  CMD="docker run -d -P -p 9200:9200 -p 9300:9300 -v $HOST_DIR/$NAME:/out -h $NAME --name="$NAME" fitbur/$NAME"
+  echo $CMD
+  $CMD
 fi
 

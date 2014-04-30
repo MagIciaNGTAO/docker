@@ -1,7 +1,7 @@
 storm.zookeeper.servers:
-    - "ZOOKEEPER_ADDR"
+    - "ZOOKEEPER_IP"
 
-nimbus.host: "NIMBUS_ADDR"
+nimbus.host: "NIMBUS_IP"
 
 # netty transport
 storm.messaging.transport: "backtype.storm.messaging.netty.Context"
@@ -11,6 +11,6 @@ storm.messaging.netty.min_wait_ms: 1000
 storm.messaging.netty.max_wait_ms: 5000
 
 drpc.servers:
-  - "NIMBUS_ADDR"
+  - "NIMBUS_IP"
 drpc.port: 3772
 drpc.invocations.port: 3773

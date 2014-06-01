@@ -6,7 +6,10 @@
   },
   "Ports": [
     {
-      "ContainerPort": "389"
+      "ContainerPort": "10389"
+    },
+    {
+      "ContainerPort": "10636"
     }
   ],
   "Volumes": [

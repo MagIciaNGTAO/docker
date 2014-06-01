@@ -1,0 +1,18 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "fitbur/nexus",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8081"
+    }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/var/app",
+      "ContainerDirectory": "/out"
+    }
+  ]
+}

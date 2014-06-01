@@ -1,0 +1,18 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "fitbur/apacheds",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "389"
+    }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/var/app",
+      "ContainerDirectory": "/out"
+    }
+  ]
+}

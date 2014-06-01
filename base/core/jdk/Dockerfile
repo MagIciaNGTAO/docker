@@ -16,6 +16,7 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 # Also remove the relic files left behind by the oracle installer
 RUN apt-get -y install oracle-java8-set-default && rm -rf /var/cache/oracle-jdk8-installer
 RUN update-java-alternatives -s java-8-oracle 
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Cleanup
 RUN apt-get -y clean
